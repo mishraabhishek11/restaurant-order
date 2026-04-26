@@ -1,8 +1,11 @@
-import { Meal } from "../type/Meal";
-import { currencyFormatter } from "../util/formatter";
-import Button from "./ui/Button";
+import { useCart } from "../../context/CartContext";
+import { Meal } from "../../type/Meal";
+import { currencyFormatter } from "../../util/formatter";
+import Button from "../ui/Button";
 
 const MealItem = ({ meal }: { meal: Meal }) => {
+  const { addItemToCart } = useCart();
+
   return (
     <li className="meal-item">
       <article>
@@ -15,7 +18,13 @@ const MealItem = ({ meal }: { meal: Meal }) => {
           <p className="meal-item-description">{meal.description}</p>
         </div>
         <p className="meal-item-actions">
-          <Button>{"Add to Cart"}</Button>
+          <Button
+            onClick={() => {
+              addItemToCart(meal);
+            }}
+          >
+            {"Add to Cart"}
+          </Button>
         </p>
       </article>
     </li>
